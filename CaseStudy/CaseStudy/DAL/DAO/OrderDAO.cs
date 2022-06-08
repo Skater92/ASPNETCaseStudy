@@ -1,6 +1,7 @@
 ﻿using CaseStudy.DAL.DomainClasses;
 using CaseStudy.Helpers;
 using CaseStudyAPI.DAL.DomainClasses;
+using Microsoft.EntityFrameworkCore;
 
 namespace CaseStudy.DAL.DAO
 {
@@ -140,6 +141,36 @@ namespace CaseStudy.DAL.DAO
             }
             return cartId;
         }
+
+        public async Task<List<Order>> GetAll(int id)
+        {
+            return await _db.Orders!.Where(order => order.CustomerId == id).ToListAsync<Order>();
+        }
+
+        public async Task<List<CartDetailsHelper>> GetOrderDetails(int tid, string email)
+        {
+            Customer? cust = _db.Customer!.FirstOrDefault(cust => cust.Email == email);
+            List<CartDetailsHelper> allDetails = new();
+            // LINQ way of doing INNER JOINS
+            var results = from o in _db.Orders
+                          join oli in _db.OrdersLineItem! on o.Id equals oli.OrderId
+                          join p in _db.Products! on oli.ProductId equals p.Id
+                          where (o.CustomerId == cust!.Id && o.Id == tid)
+                          select new CartDetailsHelper
+                          {
+                              CartID = oli.Id,
+                              ProdID = p.Id,
+                              ProdName = p.ProductName,
+                              CustomerID = cust!.Id,
+                              QtySo = oli.QtySold,
+                              QtyOr = oli.QtyOrdered,
+                              QtyBa = oli.QtyBackOrdered,
+                              Ext = oli.SellingPrice
+                          };
+            allDetails = await results.ToListAsync();
+            return allDetails;
+        }
+
 
     }
 }
