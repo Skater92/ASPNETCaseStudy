@@ -10,6 +10,9 @@
         public int QtyOr { get; set; }
         public int QtyBa { get; set; }
         public decimal Ext { get; set; }
+        public decimal Total { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal HstVal { get; set; } 
 
     };
     

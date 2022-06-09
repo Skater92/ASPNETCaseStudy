@@ -158,14 +158,15 @@ namespace CaseStudy.DAL.DAO
                           where (o.CustomerId == cust!.Id && o.Id == tid)
                           select new CartDetailsHelper
                           {
-                              CartID = oli.Id,
+                              CartID = o.Id,
                               ProdID = p.Id,
                               ProdName = p.ProductName,
                               CustomerID = cust!.Id,
                               QtySo = oli.QtySold,
                               QtyOr = oli.QtyOrdered,
                               QtyBa = oli.QtyBackOrdered,
-                              Ext = oli.SellingPrice
+                              Ext = p.MSRP
+                              
                           };
             allDetails = await results.ToListAsync();
             return allDetails;

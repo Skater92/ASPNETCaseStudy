@@ -46,6 +46,12 @@ const routes = [
         path: "/logout",
         component: () => import("components/LogoutCustomer.vue"),
       },
+      //Order History
+      {
+        name: "orderhistory",
+        path: "/orderhistory",
+        component: () => import("components/OrderHistory.vue"),
+      },
     ],
   },
   // Always leave this as last one,

@@ -58,13 +58,14 @@ namespace CaseStudy.Controllers
             return orders;
         }
 
-        [Route("{orderid}/email")]
+        [Route("{orderid}/{email}")]
         [HttpGet]
+        [AllowAnonymous]
        
-        public async Task<ActionResult<List<CartDetailsHelper>>> GetOrderDetails(int orderid, string email)
+        public async Task<ActionResult<List<CartDetailsHelper>>> GetOrderDetails(int orderId, string email)
         {
             OrderDAO oDao = new(_ctx);
-            return await oDao.GetOrderDetails(orderid, email);
+            return await oDao.GetOrderDetails(orderId, email);
         }
 
     }
