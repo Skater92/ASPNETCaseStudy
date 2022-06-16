@@ -1,6 +1,5 @@
 ﻿using CaseStudy.DAL.DomainClasses;
 using CaseStudy.Helpers;
-using CaseStudyAPI.DAL.DomainClasses;
 using Microsoft.EntityFrameworkCore;
 
 namespace CaseStudy.DAL.DAO

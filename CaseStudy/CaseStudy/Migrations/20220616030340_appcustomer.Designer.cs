@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CaseStudy.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220524230633_appuser")]
-    partial class appuser
+    [Migration("20220616030340_appcustomer")]
+    partial class appcustomer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,6 +45,40 @@ namespace CaseStudy.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+                });
+
+            modelBuilder.Entity("CaseStudy.DAL.DomainClasses.CaseStudy.DAL.DomainClasses.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("City")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<double?>("Distance")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("Street")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("CaseStudy.DAL.DomainClasses.Customer", b =>
@@ -80,12 +114,72 @@ namespace CaseStudy.Migrations
                     b.ToTable("Customer");
                 });
 
+            modelBuilder.Entity("CaseStudy.DAL.DomainClasses.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CustomerId")
+                        .HasMaxLength(128)
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("OrderAmount")
+                        .HasColumnType("money");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("CaseStudy.DAL.DomainClasses.OrderLineItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("QtyBackOrdered")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QtyOrdered")
+                        .HasMaxLength(15)
+                        .HasColumnType("int");
+
+                    b.Property<int>("QtySold")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SellingPrice")
+                        .HasColumnType("money");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrdersLineItem");
+                });
+
             modelBuilder.Entity("CaseStudy.DAL.DomainClasses.Product", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("BrandId")
+                    b.Property<int?>("BrandId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<decimal>("CostPrice")
@@ -124,6 +218,23 @@ namespace CaseStudy.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("CaseStudy.DAL.DomainClasses.OrderLineItem", b =>
+                {
+                    b.HasOne("CaseStudy.DAL.DomainClasses.Order", "Order")
+                        .WithMany("OrderLineItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CaseStudy.DAL.DomainClasses.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("CaseStudy.DAL.DomainClasses.Product", b =>
                 {
                     b.HasOne("CaseStudy.DAL.DomainClasses.Brand", "Brand")
@@ -133,6 +244,11 @@ namespace CaseStudy.Migrations
                         .IsRequired();
 
                     b.Navigation("Brand");
+                });
+
+            modelBuilder.Entity("CaseStudy.DAL.DomainClasses.Order", b =>
+                {
+                    b.Navigation("OrderLineItems");
                 });
 #pragma warning restore 612, 618
         }

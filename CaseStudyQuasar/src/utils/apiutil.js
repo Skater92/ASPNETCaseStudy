@@ -1,4 +1,5 @@
 const serverURL = "https://localhost:7029/api/";
+//const serverURL = "/api/";
 
 const fetcher = async (endpoint) => {
   let payload;

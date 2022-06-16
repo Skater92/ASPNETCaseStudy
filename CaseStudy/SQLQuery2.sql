@@ -1,3 +1,1 @@
-﻿SELECT * FROM Products WHERE BrandId=1;
-SELECT * FROM Products WHERE BrandId=3;
-SELECT * FROM Products WHERE BrandId=4;
+﻿exec pGetThreeClosestStores 42.98427, -81.24753

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CaseStudyAPI.DAL.DomainClasses
+namespace CaseStudy.DAL.DomainClasses
 {
     public class OrderLineItem
     {

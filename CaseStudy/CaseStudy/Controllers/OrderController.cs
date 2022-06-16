@@ -4,7 +4,7 @@ using CaseStudy.DAL.DomainClasses;
 using Microsoft.AspNetCore.Mvc;
 using CaseStudy.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using CaseStudyAPI.DAL.DomainClasses;
+
 
 namespace CaseStudy.Controllers
 {

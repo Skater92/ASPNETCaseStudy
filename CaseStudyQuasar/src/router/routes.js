@@ -52,6 +52,11 @@ const routes = [
         path: "/orderhistory",
         component: () => import("components/OrderHistory.vue"),
       },
+      {
+        name: "branchmap",
+        path: "/branchmap",
+        component: () => import("components/BranchMap.vue"),
+      },
     ],
   },
   // Always leave this as last one,

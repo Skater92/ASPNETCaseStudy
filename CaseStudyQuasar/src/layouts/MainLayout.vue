@@ -28,6 +28,9 @@
               <q-item clickable v-close-popup to="orderhistory">
                 <q-item-section>Order History</q-item-section>
               </q-item>
+              <q-item clickable v-close-popup to="branchmap">
+                <q-item-section>Branch Map</q-item-section>
+              </q-item>
             </q-list>
           </q-menu>
         </q-btn>

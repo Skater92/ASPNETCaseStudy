@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using CaseStudy.DAL.DomainClasses;
 
-namespace CaseStudyAPI.DAL.DomainClasses
+namespace CaseStudy.DAL.DomainClasses
 {
     public class Order
     {

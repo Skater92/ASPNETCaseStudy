@@ -14,6 +14,7 @@ namespace CaseStudy.DAL.DAO
             await _db.Customer!.AddAsync(cust);
             await _db.SaveChangesAsync();
             return cust;
+            //new changes to reflect somethign I don't know
         }
         public async Task<Customer?> GetByEmail(string? email)
         {
